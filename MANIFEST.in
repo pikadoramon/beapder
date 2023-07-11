@@ -1,0 +1,12 @@
+include README.md
+include LICENSE
+
+include beapder/requirements.txt
+include beapder/VERSION
+include beapder/FEAPDER_VERSION
+
+recursive-include beapder/utils/js *
+recursive-include beapder/templates *
+recursive-include tests *
+
+global-exclude __pycache__ *.py[cod]
