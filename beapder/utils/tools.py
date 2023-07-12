@@ -55,7 +55,6 @@ from beapder.utils.decorators import (LazyProperty,
                                       func_timeout,
                                       log_function_time,
                                       run_safe_model)
-from scrapy.spiders.crawl import CrawlSpider
 try:
     import execjs  # pip install PyExecJS
 except Exception as e:
