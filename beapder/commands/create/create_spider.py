@@ -51,18 +51,18 @@ class CreateSpider:
     def get_spider_template(self, spider_type):
         if spider_type == "AirSpider":
             template_path = "air_spider_template.tmpl"
-        elif spider_type == "Spider":
-            template_path = "spider_template.tmpl"
-        elif spider_type == "TaskSpider":
-            template_path = "task_spider_template.tmpl"
-        elif spider_type == "BatchSpider":
-            template_path = "batch_spider_template.tmpl"
+        # elif spider_type == "Spider":
+        #     template_path = "spider_template.tmpl"
+        # elif spider_type == "TaskSpider":
+        #     template_path = "task_spider_template.tmpl"
+        # elif spider_type == "BatchSpider":
+        #     template_path = "batch_spider_template.tmpl"
         elif spider_type == "GenericSpider":
             template_path = "generic_spider_template.tmpl"
         elif spider_type == "DistributedRSpider":
             template_path = "distributed_rspider.tmpl"
         else:
-            raise ValueError("spider type error, only support AirSpider/Spider/TaskSpider/BatchSpider/GenericSpider"
+            raise ValueError("spider type error, only support AirSpider/GenericSpider"
                              "/DistributedRSpider")
 
         template_path = os.path.abspath(
