@@ -82,6 +82,9 @@ class LoadSettings(metaclass=SingletonMeta):
         self.setmodule(modulepath, 2)
         self.apollo_module()
 
+    def apollo_module(self):
+        pass
+
     def __getitem__(self, item):
         global _config
         value = self.get(item, NULL_DEFAULT)
@@ -113,7 +116,7 @@ class LoadSettings(metaclass=SingletonMeta):
 
     def get(self, name, default=NULL_DEFAULT):
         global _config
-        value = _config.attr.get(name, NULL_DEFAULT)
+        value = _config.attr.get(name, default)
         if value is NULL_DEFAULT:
             value = None
         return value
