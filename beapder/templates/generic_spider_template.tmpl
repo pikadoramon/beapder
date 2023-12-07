@@ -1,0 +1,70 @@
+# -*- coding: utf-8 -*-
+"""
+Created on {DATE}
+---------
+@summary:
+这是一个基于AirSpider的通用型爬虫, 主要作用是依据提取规则进行深度采集。
+适用于全站采集, 资讯类采集，搜索类采集
+---------
+@author: {USER}
+"""
+
+import beapder
+from beapder.utils.load_settings import LoadSettings
+
+from beapder.utils.rule import Rule, LxmlLinkExtractor
+from beapder.core.spiders.generic_spider import GenericSpider
+
+
+class ${spider_name}(GenericSpider):
+    __custom_setting__ = dict(
+        USE_SESSION=True,
+        TASK_MAX_CACHED_SIZE=10,
+    )
+
+    # 这里填写的链接提取参数
+    rules = (
+        Rule(extractor=LxmlLinkExtractor(allow_domains=("www.cnet.com", "cnet.com"),
+                                         extract_xpaths=("//a/@href", "//area/@href")),
+             callback='parse_item',
+             process_links=lambda x:x[:5],
+             follow=True),
+        Rule(extractor=LxmlLinkExtractor(allow="example",
+                                         extract_xpaths=("//a/@href", "//area/@href")),
+             callback='parse_item',
+             process_links=lambda x: x[:5],
+             follow=True),
+    )
+
+    def start_callback(self):
+        print("爬虫开始")
+
+    def end_callback(self):
+        print("爬虫结束")
+
+    def start_requests(self, *args, **kws):
+        yield beapder.Request("https://www.cnet.com/news/")
+
+    def download_midware(self, request):
+
+        return request
+
+    def validate(self, request, response):
+        if response.status_code != 200:
+            raise Exception("response code not 200")  # 重试
+
+
+    def parse_item(self, request, response):
+        print(response.bs4().title)
+        print(response.xpath("//title").extract_first())
+
+
+if __name__ == "__main__":
+    # 推荐使用app.py作为入口启动spider
+    settings = LoadSettings()
+    # 执行你的最大采集深度, 这里设置为1
+    # settings.update("MAX_DEPTH_LIMIT", 1, "instance")
+    print(settings.attr)
+    t = ${spider_name}.from_settings(settings=settings)
+    t.start()
+

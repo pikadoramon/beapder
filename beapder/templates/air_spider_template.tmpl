@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+"""
+Created on {DATE}
+---------
+@summary:
+---------
+@author: {USER}
+"""
+
+import beapder
+from beapder.utils.load_settings import LoadSettings
+
+class ${spider_name}(beapder.AirSpider):
+    def start_requests(self):
+        yield beapder.Request("https://spidertools.cn")
+
+    def parse(self, request, response):
+        # 提取网站title
+        print(response.xpath("//title/text()").extract_first())
+        # 提取网站描述
+        print(response.xpath("//meta[@name='description']/@content").extract_first())
+        print("网站地址: ", response.url)
+
+
+if __name__ == "__main__":
+    # 推荐使用app.py作为入口启动spider
+    settings = LoadSettings()
+    ${spider_name}.from_settings(settings).start()

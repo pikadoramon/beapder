@@ -1,0 +1,36 @@
+# -*- coding: utf-8 -*-
+"""
+Created on {DATE}
+---------
+@summary:
+这是一个基于AirSpider的Redis分布式爬虫, 主要作用是依据redis中的种子任务进行采集。
+适用于需要分布式采集的任务类型
+---------
+@author: {USER}
+"""
+
+from beapder.utils.load_settings import LoadSettings
+from beapder.core.spiders.distribuated_rspider import DistributedRSpider
+
+
+class ${spider_name}(DistributedRSpider):
+
+    def start_requests(self):
+        for req in self.next_requests():
+            yield req
+
+    def parse(self, request, response):
+        print(request, response)
+
+
+if __name__ == '__main__':
+    # 推荐使用app.py作为入口启动spider
+    settings = LoadSettings()
+    # settings.update("MAX_DEPTH_LIMIT", 1, "instance")
+    # settings.update("LOG_METRICS_EMITTER_INTERVAL", 10)
+    # settings.update("SPIDER_THREAD_COUNT", 1, "instance")
+    # settings.update("MAX_DEAL_REQUEST_COUNT", 10)
+    settings.update("ITEM_PIPELINES", ["beapder.pipelines.file_pipeline.JsonPipeline",
+                                       "beapder.pipelines.console_pipeline.ConsolePipeline"])
+    t = ${spider_name}.from_settings(settings)
+    t.start()
