@@ -15,9 +15,6 @@ sys.path.insert(0, re.sub(r"([\\/]items$)|([\\/]spiders$)", "", os.getcwd()))
 
 __all__ = [
     "AirSpider",
-    "Spider",
-    "TaskSpider",
-    "BatchSpider",
     "BaseParser",
     "TaskParser",
     "BatchParser",
@@ -28,7 +25,7 @@ __all__ = [
     "ArgumentParser",
 ]
 
-from beapder.core.spiders import AirSpider, Spider, TaskSpider, BatchSpider
+from beapder.core.spiders import AirSpider
 from beapder.core.base_parser import BaseParser, TaskParser, BatchParser
 from beapder.network.request import Request
 from beapder.network.response import Response
